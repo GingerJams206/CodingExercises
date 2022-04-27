@@ -1,11 +1,19 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div>
-      <h3>Hello World</h3>
-    </div>
+    <>
+      <Head>
+        <title>Technical Quiz | Home</title>
+        <meta name="keywords" content="quiz" />
+      </Head>
+      <div>
+        <h1>Homepage</h1>
+        <Link href="/q1">
+          <a>Question 1</a>
+        </Link>
+      </div>
+    </>
   )
 }
