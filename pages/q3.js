@@ -11,7 +11,7 @@ const isValidTriangle = ({ sideA, sideB, sideC }) => {
   return false;
 };
 
-export default function Question2() {
+export default function Question3() {
   const [triangle, setTriangle] = useState({ sideA: null, sideB: null, sideC: null });
   const [resultVal, setResultVal] = useState(null);
 
@@ -78,7 +78,7 @@ export default function Question2() {
           </Link>
           {
             resultVal ?
-              <h2 key={i}>{resultVal}</h2> :
+              <h2>{resultVal}</h2> :
               <h2>{"null"}</h2>
           }
         </Form>
