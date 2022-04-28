@@ -2,22 +2,28 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Container, Button, Form, Segment } from 'semantic-ui-react'
 
+const isValid = (inputValue) => {
+  const re = /^[0-9, ]*[0-9]$/;
+  if (re.test(inputValue)) return true;
+  return false;
+};
 
 export default function Question4() {
-  const [inputVal, setInputVal] = useState([1, 2, 3, 4, 5, 1, 6, 7])
+  const [inputVal, setInputVal] = useState(null)
   const [resultVal, setResultVal] = useState(null);
 
 
   const handleChange = (event) => {
     const { value } = event.target;
     setInputVal(value)
+
   };
 
-  const findMode = () => {
+  const findMode = (arr) => {
     let mode = []
     let modeCount = 0
-    for (let int of inputVal) {
-      const filteredArr = inputVal.filter(val => val === +int)
+    for (let int of arr) {
+      const filteredArr = arr.filter(val => val === +int)
       if (filteredArr.length > 0) {
         const returnedArrCount = filteredArr.length
         if (returnedArrCount < modeCount) continue;
@@ -32,10 +38,26 @@ export default function Question4() {
     return mode
   }
 
+  const convertStringIntsToInts = (stringIntArr) => {
+    let convertedInts = []
+    for (let stringInt of stringIntArr) {
+      stringInt.trim();
+      const castInt = +stringInt
+      convertedInts = [...convertedInts, castInt]
+    }
+    return convertedInts
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const returnedMode = findMode()
-    setResultVal(returnedMode)
+    const isInputValid = isValid(inputVal)
+    if (isInputValid) {
+      const arrayFromInput = inputVal.split(',')
+      const convertedIntArr = convertStringIntsToInts(arrayFromInput)
+      setInputVal(convertedIntArr)
+      const returnedMode = findMode(convertedIntArr)
+      setResultVal(returnedMode)
+    }
     return;
   };
 
