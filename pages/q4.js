@@ -2,8 +2,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Container, Button, Form, Segment } from 'semantic-ui-react'
 
+
 export default function Question4() {
-  const [inputVal, setInputVal] = useState([5, 4, 3, 2, 4, 5, 1, 6, 1, 2, 5, 4])
+  const [inputVal, setInputVal] = useState([1, 2, 3, 4, 5, 1, 6, 7])
   const [resultVal, setResultVal] = useState(null);
 
 
@@ -13,19 +14,28 @@ export default function Question4() {
   };
 
   const findMode = () => {
-    let duplicates = []
+    let mode = []
+    let modeCount = 0
     for (let int of inputVal) {
       const filteredArr = inputVal.filter(val => val === +int)
       if (filteredArr.length > 0) {
-        duplicates = [...duplicates, +int]
+        const returnedArrCount = filteredArr.length
+        if (returnedArrCount < modeCount) continue;
+        if (returnedArrCount > modeCount) {
+          modeCount = returnedArrCount;
+          mode = []
+        }
+        if (!mode.includes(filteredArr[0])) mode = [...mode, filteredArr[0]]
+        continue;
       }
     }
-    debugger
+    return mode
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    findMode()
+    const returnedMode = findMode()
+    setResultVal(returnedMode)
     return;
   };
 
@@ -48,8 +58,8 @@ export default function Question4() {
             <Button id="rtn-btn">Return Home</Button>
           </Link>
           {
-            resultVal ?
-              <h2>{resultVal}</h2> :
+            resultVal?.length > 0 ?
+              resultVal.map((val, i) => <h2 key={i}>{val}</h2>) :
               <h2>{"null"}</h2>
           }
         </Form>
