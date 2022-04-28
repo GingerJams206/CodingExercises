@@ -16,6 +16,9 @@ export default function Home() {
         <Link href="/q2">
           <a>Question 2</a>
         </Link>
+        <Link href="/q3">
+          <a>Question 3</a>
+        </Link>
       </div>
     </>
   )
