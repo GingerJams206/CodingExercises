@@ -22,6 +22,9 @@ export default function Home() {
         <Link href="/q4">
           <a>Question 4</a>
         </Link>
+        <Link href="/q7">
+          <a>Question 7</a>
+        </Link>
       </div>
     </>
   )
