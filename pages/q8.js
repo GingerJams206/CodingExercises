@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Container, Button, Segment } from 'semantic-ui-react'
+import { Container, Button, Segment, Input } from 'semantic-ui-react'
 
 
 export default function Question8() {
@@ -13,7 +13,7 @@ export default function Question8() {
     if (brokenLinks.length === 0 && verifiedLinks.length === 0) {
       retrieveLinks()
     }
-    
+
   }, [brokenLinks, verifiedLinks])
 
   const retrieveLinks = async () => {
@@ -35,6 +35,7 @@ export default function Question8() {
   return (
     <Container>
       <Segment>
+        <Input />
         <Segment>
           {
             (brokenLinks.length === 0 && verifiedLinks.length === 0) &&
@@ -2213,15 +2214,15 @@ export default function Question8() {
               </>
             )
           }
-          {brokenLinks?.map((link) => (
-            <Link href={link}>
+          {brokenLinks?.map((link, i) => (
+            <Link key={i} href={link}>
               <a>
                 <Button negative id="rtn-btn">Visit!</Button>
               </a>
             </Link>
           ))}
-          {verifiedLinks?.map((link) => (
-            <Link href={link}>
+          {verifiedLinks?.map((link, i) => (
+            <Link key={i} href={link}>
               <a>
                 <Button positive id="rtn-btn">Visit!</Button>
               </a>
