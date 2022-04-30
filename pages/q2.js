@@ -15,12 +15,17 @@ export default function Question2() {
 
   const handleChange = (event) => {
     const { value } = event.target;
-    setInputVal(value)
+    const valLength = value.toString().length
+    if (valLength < 9) setInputVal(value)
+    return;
   };
 
   const findDivisors = (input) => {
     let divisors = []
     for (let i = 1; i <= input; i++) {
+      if (input % 2 !== 0) {
+        if (i % 2 === 0) continue;
+      }
       const remainder = input % i;
       if (remainder === 0) divisors = [...divisors, i];
       continue;
