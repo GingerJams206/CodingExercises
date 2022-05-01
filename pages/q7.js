@@ -1,78 +1,88 @@
 import Link from 'next/link'
-import { useState } from 'react'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { useState, useEffect } from 'react'
+import { Container, Button } from 'semantic-ui-react'
 
-const isNullOrEmpty = (inputValue) => {
-  if (!inputValue || inputValue.toString().length === 0) return true;
-  console.log(inputValue);
-  return false;
-};
 
 export default function Question7() {
-  const [inputVal, setInputVal] = useState(null);
   const [collection, setCollection] = useState([
     { id: 1, name: 'bob' },
-    { id: 2, name: 'sally' },
-    { id: 3, name: 'bob', age: 30 }
+    { id: 2, name: 'sally', occ: 'Clerk' },
+    { id: 3, name: 'bob', age: 30 },
+    { id: 4, name: 'Sawyer', dreamJob: 'Developer'}
   ]);
+  const [collectionFilters, setCollectionFilters] = useState(null)
   const [resultVal, setResultVal] = useState(null);
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setInputVal(value);
-  };
+  useEffect(() => {
+    const handleMakeFilterBtns = () => {
+      let keys = []
 
-  const handleFilterCollection = () => {
+      for (let obj of collection) {
+        const objKeys = Object.keys(obj)
+        for (let objK of objKeys) {
+          if (!keys.includes(objK)) keys = [...keys, objK]
+          continue;
+        }
+      }
+      setCollectionFilters(keys)
+    }
+
+    handleMakeFilterBtns()
+  }, [])
+
+
+  const handleFilterCollection = (inputVal) => {
     if (!collection || collection?.length === 0) return
-    let returnVal = {}
+    let filteredObj = {}
     for (let obj of collection) {
       const keys = Object.keys(obj)
       if (!keys.includes(inputVal)) continue;
       const valueOfInputKey = obj[inputVal]
       const filteredCollection = collection.filter(item => item[inputVal] === valueOfInputKey)
-      if (!Object.keys(returnVal).includes(valueOfInputKey)) returnVal[valueOfInputKey] = filteredCollection;
+      if (!Object.keys(filteredObj).includes(valueOfInputKey)) filteredObj[valueOfInputKey] = filteredCollection;
       continue;
     }
-    return returnVal
+    setResultVal(filteredObj)
   }
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const nullCheck = isNullOrEmpty(inputVal);
-    if (!nullCheck) {
-      console.log("clicked");
-      const returnValue = handleFilterCollection();
-      setResultVal(returnValue)
-    }
-    return;
-  };
 
   return (
     <Container>
-      <Form>
-        <Form.Group>
-          <Form.Field
-            id='q1'
-            name="inputVal"
-            value={inputVal || ""}
-            onChange={handleChange}
-            control="input"
-          />
-        </Form.Group>
-        <Button onClick={handleSubmit}>Submit</Button>
+      {
+        !resultVal && collection.map((obj, i) => (
+          <div key={i}>
+            {
+              Object.keys(obj).map((objKey, i) => (
+                <h2 key={i}>{objKey}: {obj[objKey]}</h2>
+              ))
+            }
+          </div>
+        ))
+      }
+      {
+        (resultVal && Object.keys(resultVal)?.length > 0) &&
+        Object.values(resultVal).flat().map((val, i) => (
+          <div key={i}>
+            {
+              Object.keys(val).map((objKey, i) => (
+                <h2 key={i}>{objKey}: {val[objKey]}</h2>
+              ))
+            }
+          </div>
+        ))
+      }
+      <div className="bottom-row-actions">
+        {
+          collectionFilters &&
+          collectionFilters.map((filterKey, i) => (
+            <Button key={i} onClick={() => handleFilterCollection(filterKey)}>Filter By: {filterKey}</Button>
+          ))
+        }
         <Link href="/">
           <Button>Return Home</Button>
         </Link>
-        {
-          (resultVal && Object.keys(resultVal)?.length > 0) ?
-            Object.entries(resultVal).map((parentVal) => (
-              <div key={parentVal[0]}>
-                <h2>{parentVal[0]}</h2>
-              </div>
-            )) :
-            <h2>{"null"}</h2>
-        }
-      </Form>
+      </div>
+
+
     </Container>
   );
 }
