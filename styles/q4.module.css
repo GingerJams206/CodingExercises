@@ -1,0 +1,25 @@
+.q4Body {
+  display: flex;
+  flex-direction: row;
+  height: 40vh;
+}
+
+.q4Body_Left {
+  width: 60%;
+}
+
+.q4_input {
+  width: 80%;
+}
+
+.returnVal {
+  margin-top: unset!important;
+}
+
+.q4Body_Right {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  overflow-y: auto;
+}

@@ -1,0 +1,21 @@
+.q7Body {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 40vh;
+  justify-content: space-between;
+}
+
+.q7Body_Top {
+  height: 30vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+.q7_dataCard {
+  width: 15vh;
+  height: 20vh;
+  margin: unset!important;
+}

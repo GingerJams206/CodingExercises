@@ -1,0 +1,17 @@
+.q1Body {
+  display: flex;
+  flex-direction: row;
+  height: 40vh;
+}
+
+.q1Body_Left {
+  width: 60%;
+}
+
+.q1_input {
+  width: 80%;
+}
+
+.q1Body_Right {
+  width: 40%;
+}

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { Container, Button, Form, Segment } from 'semantic-ui-react'
+import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
+import styles from '../styles/q3.module.css'
 
 const isValidTriangle = ({ sideA, sideB, sideC }) => {
   // a triangle is valid if sum of its two sides is greater than the third side
@@ -44,44 +45,58 @@ export default function Question3() {
 
   return (
     <Container>
-      <Segment>
-        <Form>
-          <Form.Group>
-            <Form.Field
-              id='q3_sideA'
-              type="number"
-              name="sideA"
-              value={triangle['sideA'] || ""}
-              onChange={handleChange}
-              control="input"
-            />
-            <Form.Field
-              id='q3_sideB'
-              type="number"
-              name="sideB"
-              value={triangle['sideB'] || ""}
-              onChange={handleChange}
-              control="input"
-            />
-            <Form.Field
-              id='q3_sideC'
-              type="number"
-              name="sideC"
-              value={triangle['sideC'] || ""}
-              onChange={handleChange}
-              control="input"
-            />
-          </Form.Group>
-          <Button id="submit-btn" onClick={handleSubmit}>Submit</Button>
-          <Link href="/">
-            <Button id="rtn-btn">Return Home</Button>
-          </Link>
+      <h3>Please enter 3 values to build a triangle! The Submit button will only fire and calculate the triangle area if the triangle is valid.</h3>
+      <Segment className={styles.q3Body}>
+        <div className={styles.q3Body_Left}>
+          <Form>
+            <Form.Group>
+              <Form.Field
+                inline
+                label="Side A"
+                id='q3_sideA'
+                type="number"
+                name="sideA"
+                value={triangle['sideA'] || ""}
+                onChange={handleChange}
+                control={Input}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Field
+                inline
+                label="Side B"
+                id='q3_sideB'
+                type="number"
+                name="sideB"
+                value={triangle['sideB'] || ""}
+                onChange={handleChange}
+                control={Input}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Field
+                inline
+                label="Side C"
+                id='q3_sideC'
+                type="number"
+                name="sideC"
+                value={triangle['sideC'] || ""}
+                onChange={handleChange}
+                control={Input}
+              />
+            </Form.Group>
+            <Button positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
+
+          </Form>
+        </div>
+        <div className={styles.q3Body_Right}>
           {
             resultVal ?
               <h2>{resultVal}</h2> :
               <h2>{"null"}</h2>
           }
-        </Form>
+        </div>
+
       </Segment>
     </Container>
   );

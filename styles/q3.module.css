@@ -1,0 +1,20 @@
+.q3Body {
+  display: flex;
+  flex-direction: row;
+  height: 40vh;
+}
+
+.q3Body_Left {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+
+.q3Body_Right {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}

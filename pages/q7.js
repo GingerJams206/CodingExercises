@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Container, Button } from 'semantic-ui-react'
-
+import { Container, Button, Segment } from 'semantic-ui-react'
+import Question7DataCard from '../components/Q7DataCard';
+import styles from '../styles/q7.module.css'
 
 export default function Question7() {
   const [collection, setCollection] = useState([
@@ -33,11 +33,12 @@ export default function Question7() {
   const handleFilterCollection = (inputVal) => {
     if (!collection || collection?.length === 0) return
     let filteredObj = {}
-    for (let obj of collection) {
+    const collectionArr = [...collection]
+    for (let obj of collectionArr) {
       const keys = Object.keys(obj)
       if (!keys.includes(inputVal)) continue;
       const valueOfInputKey = obj[inputVal]
-      const filteredCollection = collection.filter(item => item[inputVal] === valueOfInputKey)
+      const filteredCollection = collectionArr.filter(item => item[inputVal] === valueOfInputKey)
       if (!Object.keys(filteredObj).includes(valueOfInputKey)) filteredObj[valueOfInputKey] = filteredCollection;
       continue;
     }
@@ -46,41 +47,30 @@ export default function Question7() {
 
   return (
     <Container>
-      {
-        !resultVal && collection.map((obj, i) => (
-          <div key={i}>
-            {
-              Object.keys(obj).map((objKey, i) => (
-                <h2 key={i}>{objKey}: {obj[objKey]}</h2>
-              ))
-            }
-          </div>
-        ))
-      }
-      {
-        (resultVal && Object.keys(resultVal)?.length > 0) &&
-        Object.values(resultVal).flat().map((val, i) => (
-          <div key={i}>
-            {
-              Object.keys(val).map((objKey, i) => (
-                <h2 key={i}>{objKey}: {val[objKey]}</h2>
-              ))
-            }
-          </div>
-        ))
-      }
-      <div className="bottom-row-actions">
-        {
-          collectionFilters &&
-          collectionFilters.map((filterKey, i) => (
-            <Button key={i} onClick={() => handleFilterCollection(filterKey)}>Filter By: {filterKey}</Button>
-          ))
-        }
-        <Link href="/">
-          <Button>Return Home</Button>
-        </Link>
-      </div>
+      <h3>Click a button to apply a sorting filter and only return the items with the attached key!</h3>
+      <Segment className={styles.q7Body}>
+        <div className={styles.q7Body_Top}>
+          {
+            !resultVal && collection.map((val, i) => (
+              <Question7DataCard key={i} cellData={val} parentKey={i} />
+            ))
+          }
+          {
+            (resultVal && Object.keys(resultVal)?.length > 0) &&
+            Object.values(resultVal).flat().map((val, i) => (
+              <Question7DataCard key={i} cellData={val} parentKey={i} />
+            ))
+          }
+        </div>
 
+        <div className="bottom-row-actions">
+          {
+            collectionFilters?.map((filterKey, i) => (
+              <Button positive key={i} onClick={() => handleFilterCollection(filterKey)}>Filter By: {filterKey}</Button>
+            ))
+          }
+        </div>
+      </Segment>
 
     </Container>
   );
