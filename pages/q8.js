@@ -35,6 +35,7 @@ export default function Question8() {
 
   return (
     <Container>
+      <h3>A list of hundreds of URLS are being validated concurrently with Promise.all().</h3>
       <Segment className={styles.q8Body}>
         {
           (brokenLinks.length === 0 && verifiedLinks.length === 0) &&
