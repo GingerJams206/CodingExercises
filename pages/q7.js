@@ -7,8 +7,7 @@ export default function Question7() {
   const [collection, setCollection] = useState([
     { id: 1, name: 'bob' },
     { id: 2, name: 'sally', occ: 'Clerk' },
-    { id: 3, name: 'bob', age: 30 },
-    { id: 4, name: 'Sawyer', dreamJob: 'Developer'}
+    { id: 3, name: 'bob', age: 30 }
   ]);
   const [collectionFilters, setCollectionFilters] = useState(null)
   const [resultVal, setResultVal] = useState(null);
