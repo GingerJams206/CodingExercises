@@ -32,7 +32,7 @@ export default function Question1() {
     <Container>
       <Form>
         <Form.Group>
-          <input
+          <Form.Field
             id='q1'
             role="input"
             name="inputVal"
@@ -42,7 +42,7 @@ export default function Question1() {
             data-testid={"input"}
           />
         </Form.Group>
-        <button data-testid={"submit"} onClick={handleSubmit}>Submit</button>
+        <Button data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
         <Link href="/">
           <Button>Return Home</Button>
         </Link>
