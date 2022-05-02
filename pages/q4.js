@@ -3,20 +3,27 @@ import { useState } from 'react'
 import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
 import styles from '../styles/q4.module.css'
 
-const isValid = (inputValue) => {
-  const re = /^[0-9, ]*[0-9]$/;
-  if (re.test(inputValue)) return true;
-  return false;
-};
+
 
 export default function Question4() {
   const [inputVal, setInputVal] = useState(null)
   const [resultVal, setResultVal] = useState(null);
+  const [inputErr, setInputErr] = useState(false)
 
+  const isValid = (inputValue) => {
+    const re = /^[0-9, ]*[0-9]$/;
+    if (re.test(inputValue)) {
+      setInputErr(false)
+      return true;
+    }
+    setInputErr(true)
+    return false;
+  };
 
   const handleChange = (event) => {
     const { value } = event.target;
     setInputVal(value)
+    setInputErr(false)
 
   };
 
@@ -55,7 +62,6 @@ export default function Question4() {
     if (isInputValid) {
       const arrayFromInput = inputVal.split(',')
       const convertedIntArr = convertStringIntsToInts(arrayFromInput)
-      setInputVal(convertedIntArr)
       const returnedMode = findMode(convertedIntArr)
       setResultVal(returnedMode)
     }
@@ -65,10 +71,10 @@ export default function Question4() {
 
   return (
     <Container>
-      <h3>Please enter a list of numerical values! The Submit button will only fire if the entered value follows the pattern X, X, X.</h3>
+      <h3>Please enter a list of numerical values. The Submit button will only fire if the entered value follows the pattern X, X, X.</h3>
       <Segment className={styles.q4Body}>
         <div className={styles.q4Body_Left}>
-          <Form>
+          <Form error>
             <Form.Group>
               <Form.Field
                 id='q4'
@@ -76,10 +82,11 @@ export default function Question4() {
                 value={inputVal || ""}
                 onChange={handleChange}
                 control={Input}
-                className = {styles.q4_input}
+                className={styles.q4_input}
+                error={inputErr && { content: "This failed the validation test. Please enter values as 'X, X, X' and try again.", pointing: 'above' }}
               />
             </Form.Group>
-            <Button positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
+            <Button disabled = {inputErr} positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
 
           </Form>
         </div>
