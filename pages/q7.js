@@ -77,7 +77,7 @@ export default function Question7() {
 
   return (
     <Container>
-      <h3>Click a button to apply a sorting filter and only return the items with the attached key!</h3>
+      <h3>Click a sort button or input a custom key to apply a sorting filter and only return the items with the attached key. The key buttons are dynamically generated from the collection.</h3>
       <Form error>
         <Form.Group>
           <Form.Field
