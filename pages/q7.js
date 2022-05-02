@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Button, Segment } from 'semantic-ui-react'
+import { Container, Button, Segment, Form, Input } from 'semantic-ui-react'
 import Question7DataCard from '../components/Q7DataCard';
 import styles from '../styles/q7.module.css'
 
@@ -10,7 +10,36 @@ export default function Question7() {
     { id: 3, name: 'bob', age: 30 }
   ]);
   const [collectionFilters, setCollectionFilters] = useState(null)
+  const [inputVal, setInputVal] = useState(null)
   const [resultVal, setResultVal] = useState(null);
+  const [inputErr, setInputErr] = useState(false)
+
+  const isNullOrEmpty = (inputValue) => {
+    if (!inputValue || inputValue.toString().length === 0) {
+      setInputErr(true)
+      return true;
+    }
+    console.log(inputValue);
+    setInputErr(false)
+    return false;
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setInputVal(value);
+    setInputErr(false)
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const nullCheck = isNullOrEmpty(inputVal);
+    if (!nullCheck) {
+      console.log("clicked");
+      handleFilterCollection(inputVal)
+      setInputVal(null);
+    }
+    return;
+  };
 
   useEffect(() => {
     const handleMakeFilterBtns = () => {
@@ -43,12 +72,30 @@ export default function Question7() {
       continue;
     }
     setResultVal(filteredObj)
+    if (Object.keys(filteredObj).length === 0) setInputErr(true)
   }
 
   return (
     <Container>
       <h3>Click a button to apply a sorting filter and only return the items with the attached key!</h3>
+      <Form error>
+        <Form.Group>
+          <Form.Field
+            id='q1'
+            role="input"
+            name="inputVal"
+            value={inputVal || ""}
+            onChange={handleChange}
+            control={Input}
+            data-testid={"input"}
+            className={styles.q1_input}
+            error={inputErr && { content: "The key submitted is not present within the collection.", pointing: 'above' }}
+          />
+        </Form.Group>
+        <Button disabled={inputErr} positive data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
+      </Form>
       <Segment className={styles.q7Body}>
+
         <div className={styles.q7Body_Top}>
           {
             !resultVal && collection.map((val, i) => (
@@ -61,12 +108,18 @@ export default function Question7() {
               <Question7DataCard key={i} cellData={val} parentKey={i} />
             ))
           }
+          {
+            (resultVal && Object.keys(resultVal)?.length === 0) &&
+            <>
+              <h3>There seems to be nothing here...</h3>
+            </>
+          }
         </div>
 
         <div className="bottom-row-actions">
           {
             collectionFilters?.map((filterKey, i) => (
-              <Button positive key={i} onClick={() => handleFilterCollection(filterKey)}>Filter By: {filterKey}</Button>
+              <Button primary key={i} onClick={() => handleFilterCollection(filterKey)}>Filter By: {filterKey}</Button>
             ))
           }
         </div>
