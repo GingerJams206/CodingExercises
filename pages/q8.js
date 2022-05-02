@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { Container, Button, Segment, Input } from 'semantic-ui-react'
+import { Container, Button, Segment } from 'semantic-ui-react'
 import styles from '../styles/q8.module.css'
 
 

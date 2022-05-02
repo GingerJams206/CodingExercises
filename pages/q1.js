@@ -2,19 +2,26 @@ import { useState } from 'react'
 import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
 import styles from '../styles/q1.module.css'
 
-const isNullOrEmpty = (inputValue) => {
-  if (!inputValue || inputValue.toString().length === 0) return true;
-  console.log(inputValue);
-  return false;
-};
+
 
 export default function Question1() {
   const [inputVal, setInputVal] = useState(null);
+  const [inputErr, setInputErr] = useState(false)
   const [newVal, setNewVal] = useState(null);
 
+  const isNullOrEmpty = (inputValue) => {
+    if (!inputValue || inputValue.toString().length === 0) {
+      setInputErr(true)
+      return true;
+    }
+    console.log(inputValue);
+    setInputErr(false)
+    return false;
+  };
   const handleChange = (event) => {
     const { value } = event.target;
     setInputVal(value);
+    setInputErr(false)
   };
 
   const handleSubmit = (event) => {
@@ -30,10 +37,10 @@ export default function Question1() {
 
   return (
     <Container>
-      <h3>Please enter a value! The Submit button will only fire and trigger a state change when the input is not null or empty.</h3>
+      <h3>Please enter a value. The Submit button will only fire and trigger a state change when the input is not null or empty.</h3>
       <Segment className={styles.q1Body}>
         <div className={styles.q1Body_Left}>
-          <Form>
+          <Form error>
             <Form.Group>
               <Form.Field
                 id='q1'
@@ -43,10 +50,11 @@ export default function Question1() {
                 onChange={handleChange}
                 control={Input}
                 data-testid={"input"}
-                className = {styles.q1_input}
+                className={styles.q1_input}
+                error={inputErr && { content: "This failed the null/empty check. Please enter a value and try again.", pointing: 'above' }}
               />
             </Form.Group>
-            <Button positive data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
+            <Button disabled={inputErr} positive data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
           </Form>
         </div>
         <div className={styles.q1Body_Right}>

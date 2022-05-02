@@ -1,25 +1,32 @@
-import Link from 'next/link'
 import { useState } from 'react'
-import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
+import { Container, Button, Form, Segment, Input, Message } from 'semantic-ui-react'
 import styles from '../styles/q3.module.css'
 
-const isValidTriangle = ({ sideA, sideB, sideC }) => {
-  // a triangle is valid if sum of its two sides is greater than the third side
-  // a + b > c
-  // a + c > b
-  // b + c > a
-  if ((+sideA + +sideB > +sideC) && (+sideA + +sideC > +sideB) && (+sideB + +sideC > +sideA)) return true;
-  return false;
-};
+
 
 export default function Question3() {
   const [triangle, setTriangle] = useState({ sideA: null, sideB: null, sideC: null });
+  const [inputErr, setInputErr] = useState(false)
   const [resultVal, setResultVal] = useState(null);
 
+
+  const isValidTriangle = ({ sideA, sideB, sideC }) => {
+    // a triangle is valid if sum of its two sides is greater than the third side
+    // a + b > c
+    // a + c > b
+    // b + c > a
+    if ((+sideA + +sideB > +sideC) && (+sideA + +sideC > +sideB) && (+sideB + +sideC > +sideA)) {
+      setInputErr(false)
+      return true;
+    }
+    setInputErr(true)
+    return false;
+  };
 
   const handleChange = (event) => {
     const { value, name } = event.target;
     setTriangle(prev => ({ ...prev, [name]: value }))
+    setInputErr(false)
   };
 
   const computeTriangleArea = (triangle) => {
@@ -45,10 +52,10 @@ export default function Question3() {
 
   return (
     <Container>
-      <h3>Please enter 3 values to build a triangle! The Submit button will only fire and calculate the triangle area if the triangle is valid.</h3>
+      <h3>Please enter 3 values to build a triangle. The Submit button will only fire and calculate the triangle area if the triangle is valid.</h3>
       <Segment className={styles.q3Body}>
         <div className={styles.q3Body_Left}>
-          <Form>
+          <Form error>
             <Form.Group>
               <Form.Field
                 inline
@@ -85,14 +92,21 @@ export default function Question3() {
                 control={Input}
               />
             </Form.Group>
-            <Button positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
+            {inputErr &&
+              <Message
+                error
+                header='Invalid Dimensions'
+                content='The dimensions provided do not form a valid triangle. Please try again.'
+              />
+            }
+            <Button disabled={inputErr} positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
 
           </Form>
         </div>
         <div className={styles.q3Body_Right}>
           {
             resultVal ?
-              <h2>{resultVal}</h2> :
+              <h2>{resultVal.toFixed(3)}</h2> :
               <h2>{"null"}</h2>
           }
         </div>
