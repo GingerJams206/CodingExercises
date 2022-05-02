@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { Container, Button, Form, Segment } from 'semantic-ui-react'
+import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
+import styles from '../styles/q2.module.css'
 
 const isNullOrEmptyOrNaN = (inputValue) => {
   if (!inputValue || inputValue.toString().length === 0 || isNaN(inputValue) || +inputValue === 0) return true;
@@ -47,28 +48,31 @@ export default function Question2() {
 
   return (
     <Container>
-      <Segment>
-        <Form>
-          <Form.Group>
-            <Form.Field
-              id='q2'
-              type="number"
-              name="inputVal"
-              value={inputVal || ""}
-              onChange={handleChange}
-              control="input"
-            />
-          </Form.Group>
-          <Button id="submit-btn" onClick={handleSubmit}>Submit</Button>
-          <Link href="/">
-            <Button id="rtn-btn">Return Home</Button>
-          </Link>
+      <h3>Please enter a number! The Submit button will trigger a function to calculate the divisors of your input.</h3>
+      <Segment className={styles.q2Body}>
+        <div className={styles.q2Body_Left}>
+          <Form>
+            <Form.Group>
+              <Form.Field
+                id='q2'
+                type="number"
+                name="inputVal"
+                value={inputVal || ""}
+                onChange={handleChange}
+                control={Input}
+                className={styles.q2_input}
+              />
+            </Form.Group>
+            <Button positive id="submit-btn" onClick={handleSubmit}>Submit</Button>
+          </Form>
+        </div>
+        <div className={styles.q2Body_Right}>
           {
             resultVal?.length > 0 ?
               resultVal.map((val, i) => <h2 key={i}>{val}</h2>) :
               <h2>{"null"}</h2>
           }
-        </Form>
+        </div>
       </Segment>
     </Container>
   );

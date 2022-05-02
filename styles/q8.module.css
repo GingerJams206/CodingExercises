@@ -1,7 +1,24 @@
-.valid {
-  color: green;
+.q8Body {
+  display: flex;
+  flex-direction: column;
+  height: 40vh;
 }
 
-.invalid {
-  color: red;
+.q8Body_CheckedLinkBody {
+  display: flex;
+  flex-direction: row;
+}
+
+.q8Body_Unchecked, .q8Body_Verified, .q8Body_Failed {
+  height: 38vh;
+}
+
+.q8_Links {
+  height: 31vh;
+  overflow-y: auto;
+}
+
+.q8Body_Verified, .q8Body_Failed {
+  width: 50%;
+  margin: unset!important;
 }
