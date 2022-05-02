@@ -77,7 +77,7 @@ export default function Question2() {
           {
             resultVal?.length > 0 ?
               resultVal.map((val, i) => <h2 key={i}>{val}</h2>) :
-              <h2>{"null"}</h2>
+              <h2>{"Type to Begin..."}</h2>
           }
         </div>
       </Segment>

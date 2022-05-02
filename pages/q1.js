@@ -58,7 +58,7 @@ export default function Question1() {
           </Form>
         </div>
         <div className={styles.q1Body_Right}>
-          <h2 data-testid={"result_val"}>{newVal || "null"}</h2>
+          <h2 data-testid={"result_val"}>{newVal || "Type to Begin..."}</h2>
         </div>
       </Segment>
     </Container>
