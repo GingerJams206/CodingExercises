@@ -32,19 +32,21 @@ export default function Question1() {
     <Container>
       <Form>
         <Form.Group>
-          <Form.Field
+          <input
             id='q1'
+            role="input"
             name="inputVal"
             value={inputVal || ""}
             onChange={handleChange}
             control="input"
+            data-testid={"input"}
           />
         </Form.Group>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <button data-testid={"submit"} onClick={handleSubmit}>Submit</button>
         <Link href="/">
           <Button>Return Home</Button>
         </Link>
-        <h2>{newVal || "null"}</h2>
+        <h2 data-testid={"result_val"}>{newVal || "null"}</h2>
       </Form>
     </Container>
   );
