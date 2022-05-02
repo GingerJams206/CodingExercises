@@ -1,0 +1,38 @@
+
+
+5.
+
+
+A.
+
+SELECT [Name] FROM Salesperson
+INNER JOIN Orders ON Salesperson.SalespersonID = Orders.SalespersonID
+WHERE [CustomerID] = 4
+
+B.
+
+SELECT [Name] FROM Salesperson
+LEFT JOIN Orders ON Salesperson.SalespersonID = Orders.SalespersonID
+WHERE [CustomerID] != 4
+
+
+C.
+
+SELECT [Name], count(*) as Orders
+ FROM Salesperson
+ INNER JOIN Orders ON Salesperson.SalespersonID = Orders.SalespersonID
+ GROUP BY [Name] HAVING COUNT(Orders) >= 2
+
+
+6.
+
+
+A.
+
+SELECT TOP 1 SALARY  
+FROM (  
+      SELECT DISTINCT TOP 2 SALARY  
+      FROM Salesperson  
+      ORDER BY SALARY DESC  
+      ) RESULT  
+ORDER BY SALARY 
