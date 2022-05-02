@@ -107,7 +107,7 @@ export default function Question3() {
           {
             resultVal ?
               <h2>{resultVal.toFixed(3)}</h2> :
-              <h2>{"null"}</h2>
+              <h2>{"Triangle man, triangle man..."}</h2>
           }
         </div>
 

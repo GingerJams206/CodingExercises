@@ -71,7 +71,7 @@ export default function Question4() {
 
   return (
     <Container>
-      <h3>Please enter a list of numerical values. The Submit button will only fire if the entered value follows the pattern X, X, X.</h3>
+      <h3>Please enter a list of numerical values and return the most occurring duplicates. The Submit button will only fire if the entered value follows the pattern X, X, X.</h3>
       <Segment className={styles.q4Body}>
         <div className={styles.q4Body_Left}>
           <Form error>
@@ -94,7 +94,7 @@ export default function Question4() {
           {
             resultVal?.length > 0 ?
               resultVal.map((val, i) => <h2 className={styles.returnVal} key={i}>{val}</h2>) :
-              <h2>{"null"}</h2>
+              <h2>{"Type to Begin..."}</h2>
           }
         </div>
       </Segment>
