@@ -1,13 +1,14 @@
-import { useState } from 'react'
+
+import React from 'react'
 import { Container, Button, Form, Segment, Input } from 'semantic-ui-react'
 import styles from '../styles/q1.module.css'
 
 
 
 export default function Question1() {
-  const [inputVal, setInputVal] = useState(null);
-  const [inputErr, setInputErr] = useState(false)
-  const [newVal, setNewVal] = useState(null);
+  const [inputVal, setInputVal] = React.useState(null);
+  const [inputErr, setInputErr] = React.useState(false)
+  const [newVal, setNewVal] = React.useState(null);
 
   const isNullOrEmpty = (inputValue) => {
     if (!inputValue || inputValue.toString().length === 0) {
@@ -44,7 +45,7 @@ export default function Question1() {
             <Form.Group>
               <Form.Field
                 id='q1'
-                role="input"
+                role="textbox"
                 name="inputVal"
                 value={inputVal || ""}
                 onChange={handleChange}
@@ -54,11 +55,11 @@ export default function Question1() {
                 error={inputErr && { content: "This failed the null/empty check. Please enter a value and try again.", pointing: 'above' }}
               />
             </Form.Group>
-            <Button disabled={inputErr} positive data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
+            <Button role="button" disabled={inputErr} positive data-testid={"submit"} onClick={handleSubmit}>Submit</Button>
           </Form>
         </div>
         <div className={styles.q1Body_Right}>
-          <h2 data-testid={"result_val"}>{newVal || "Type to Begin..."}</h2>
+          <h2 role="heading" aria-level="2" data-testid={"result_val"}>{newVal || "Type to Begin..."}</h2>
         </div>
       </Segment>
     </Container>
